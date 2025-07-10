@@ -1,0 +1,88 @@
+name: Code Quality
+
+on:
+  push:
+    branches: [main, develop, master]
+  pull_request:
+    branches: [main, develop, master]
+
+jobs:
+  solidity-lint:
+    name: Solidity Linting
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Solhint
+        run: npm run lint:sol
+
+      - name: Check for linting errors
+        if: failure()
+        run: |
+          echo "::error::Solidity linting failed. Please fix the issues and try again."
+          exit 1
+
+  prettier-check:
+    name: Code Formatting Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check formatting
+        run: npm run format:check
+
+      - name: Format code (if check fails)
+        if: failure()
+        run: |
+          npm run format
+          echo "::warning::Code was not properly formatted. Run 'npm run format' locally."
+
+  contract-size:
+    name: Contract Size Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Compile contracts
+        run: npm run compile
+
+      - name: Check contract sizes
+        run: npm run size
+        continue-on-error: true
+
+      - name: Warn if contracts are large
+        run: |
+          echo "::warning::Check contract sizes to ensure they are within limits (24KB for mainnet)"
