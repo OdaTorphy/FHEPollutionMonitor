@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🚀 Running pre-push checks..."
+
+# Run full test suite with gas reporting
+echo "🧪 Running full test suite with gas reporting..."
+npm run test:gas || {
+  echo "❌ Tests failed with gas reporting. Please fix before pushing."
+  exit 1
+}
+
+# Run security analysis
+echo "🔐 Running security analysis..."
+npm run lint:sol || {
+  echo "❌ Security analysis found issues. Please review before pushing."
+  exit 1
+}
+
+echo "✅ All pre-push checks passed!"
