@@ -1,0 +1,12 @@
+node_modules
+artifacts
+cache
+coverage
+typechain-types
+*.env
+.env.example
+package-lock.json
+yarn.lock
+dist
+build
+*.md
