@@ -1,12 +1,30 @@
-# Privacy Pollution Monitor 🌱
+# FHE Pollution Monitor 🌱
 
-> Privacy-preserving environmental monitoring powered by Zama FHEVM - enabling honest pollution reporting while protecting industrial data confidentiality.
+> **Confidential Pollution Source Monitoring - Privacy Environmental Pollution Tracking**
 
-**🌐 Live Demo**: [https://privacy-pollution-monitor.vercel.app/](https://privacy-pollution-monitor.vercel.app/)
+Privacy-preserving environmental monitoring powered by Zama FHEVM - enabling honest pollution reporting while protecting industrial data confidentiality through Fully Homomorphic Encryption.
+
+**🌐 Live Demo**: [https://fhe-pollution-monitor.vercel.app/](https://fhe-pollution-monitor.vercel.app/)
+
 **📋 Smart Contract**: `0xc61a1997F87156dfC96CA14E66fA9E3A02D36358` (Sepolia)
-**💻 GitHub**: [OdaTorphy/PrivacyPollutionMonitor](https://github.com/OdaTorphy/PrivacyPollutionMonitor)
 
-Built for the **Zama FHE Challenge** - demonstrating practical privacy-preserving applications in environmental governance.
+**💻 GitHub**: [https://github.com/OdaTorphy/FHEPollutionMonitor](https://github.com/OdaTorphy/FHEPollutionMonitor)
+
+**📹 Demo Video**: Download `demo.mp4` to watch the full demonstration (video link not available for streaming)
+
+Built for the **Zama FHE Bounty Challenge** - demonstrating practical privacy-preserving applications in environmental governance.
+
+---
+
+## 🎯 Core Concept
+
+**FHE Contract-based Confidential Pollution Source Monitoring - Privacy Environment Pollution Tracking**
+
+This project leverages Fully Homomorphic Encryption (FHE) through Zama FHEVM to enable confidential pollution monitoring where:
+- Industrial sources can report pollution data without revealing exact measurements
+- Regulatory compliance is verified through encrypted threshold comparisons
+- Environmental accountability is maintained while protecting business-sensitive information
+- All computations occur on encrypted data without decryption
 
 ---
 
@@ -108,8 +126,8 @@ Sepolia testnet ETH
 
 ```bash
 # Clone repository
-git clone https://github.com/OdaTorphy/PrivacyPollutionMonitor.git
-cd PrivacyPollutionMonitor
+git clone https://github.com/OdaTorphy/FHEPollutionMonitor.git
+cd FHEPollutionMonitor
 
 # Install dependencies
 npm install
@@ -166,7 +184,7 @@ npm install
 npm run dev
 ```
 
-Visit `http://localhost:5173`
+The application will open in your browser automatically
 
 ---
 
@@ -471,9 +489,9 @@ See [SECURITY_PERFORMANCE.md](./SECURITY_PERFORMANCE.md) for comprehensive secur
 
 ## 📹 Demo Video
 
-Watch the full demonstration of Privacy Pollution Monitor:
+**Video File**: `demo.mp4`
 
-**Video**: [PrivacyPollutionMonitor.mp4](./demo/PrivacyPollutionMonitor.mp4)
+**Important**: Please download the `demo.mp4` file to watch the demonstration. The video file cannot be streamed via link and must be downloaded locally.
 
 **Demo Includes**:
 1. Wallet connection and setup
@@ -588,9 +606,10 @@ npm run node                 # Start local Hardhat node
 
 ### Project Links
 
-- **Live Demo**: [privacy-pollution-monitor.vercel.app](https://privacy-pollution-monitor.vercel.app/)
-- **GitHub Repository**: [github.com/OdaTorphy/PrivacyPollutionMonitor](https://github.com/OdaTorphy/PrivacyPollutionMonitor)
+- **Live Demo**: [https://fhe-pollution-monitor.vercel.app/](https://fhe-pollution-monitor.vercel.app/)
+- **GitHub Repository**: [https://github.com/OdaTorphy/FHEPollutionMonitor](https://github.com/OdaTorphy/FHEPollutionMonitor)
 - **Smart Contract**: [0xc61a1997F87156dfC96CA14E66fA9E3A02D36358](https://sepolia.etherscan.io/address/0xc61a1997F87156dfC96CA14E66fA9E3A02D36358)
+- **Demo Video**: `demo.mp4` (download to watch - streaming not available)
 
 ---
 
@@ -724,21 +743,22 @@ of this software and associated documentation files...
 
 ## 📞 Contact & Support
 
-- **Issues**: [GitHub Issues](https://github.com/OdaTorphy/PrivacyPollutionMonitor/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/OdaTorphy/PrivacyPollutionMonitor/discussions)
-- **Email**: privacy-pollution@protonmail.com
-- **Twitter**: [@PrivacyPollution](https://twitter.com/PrivacyPollution)
+- **Issues**: [GitHub Issues](https://github.com/OdaTorphy/FHEPollutionMonitor/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/OdaTorphy/FHEPollutionMonitor/discussions)
+- **Email**: fhe-pollution@protonmail.com
 
 ---
 
 <div align="center">
 
-**Privacy Pollution Monitor** - Where Environmental Transparency Meets Data Privacy 🌍🔐
+**FHE Pollution Monitor** - Where Environmental Transparency Meets Data Privacy 🌍🔐
+
+*Confidential Pollution Source Monitoring - Privacy Environmental Pollution Tracking*
 
 *Protecting our planet while protecting your data*
 
 Built with ❤️ using [Zama FHEVM](https://docs.zama.ai/fhevm)
 
-[Live Demo](https://privacy-pollution-monitor.vercel.app/) • [Documentation](./docs) • [GitHub](https://github.com/OdaTorphy/PrivacyPollutionMonitor)
+[Live Demo](https://fhe-pollution-monitor.vercel.app/) • [Documentation](./docs) • [GitHub](https://github.com/OdaTorphy/FHEPollutionMonitor)
 
 </div>
