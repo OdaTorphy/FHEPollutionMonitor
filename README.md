@@ -12,7 +12,7 @@ Privacy-preserving environmental monitoring powered by Zama FHEVM - enabling hon
 
 **📹 Demo Video**: Download `demo.mp4` to watch the full demonstration (video link not available for streaming)
 
-Built for the **Zama FHE Bounty Challenge** - demonstrating practical privacy-preserving applications in environmental governance.
+Built for the **Zama FHE ** - demonstrating practical privacy-preserving applications in environmental governance.
 
 ---
 
