@@ -178,13 +178,29 @@ npm run verify
 
 ### Run Frontend
 
+#### Option 1: Legacy HTML Application
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
 
-The application will open in your browser automatically
+#### Option 2: React Application with FHEVM SDK (Recommended)
+```bash
+cd PrivacyPollutionMonitor
+npm install
+npm run dev
+```
+
+The React application will run on `http://localhost:3001` with full FHEVM SDK integration.
+
+**React App Features:**
+- 🔐 Full client-side FHE encryption
+- 📊 Real-time dashboard with statistics
+- 🏭 Station registration and management
+- 📈 Encrypted pollution reporting
+- ⚠️ Alert threshold configuration
+- 🎯 Modern React hooks and context API
 
 ---
 
@@ -318,6 +334,59 @@ if (isAuthorized) {
 }
 ```
 
+### 5. Using the React Application (NEW)
+
+The new React application provides a modern, component-based interface with full FHEVM SDK integration:
+
+```jsx
+import { FhevmProvider, useFhevmClient, useEncrypt } from 'fhevm-sdk/react';
+
+// Wrap your app with FhevmProvider
+function App() {
+  return (
+    <FhevmProvider config={{
+      network: 'sepolia',
+      contractAddress: '0xc61a1997F87156dfC96CA14E66fA9E3A02D36358',
+      chainId: 11155111
+    }}>
+      <PollutionReporter />
+    </FhevmProvider>
+  );
+}
+
+// Use hooks in components
+function PollutionReporter() {
+  const client = useFhevmClient();
+  const { encrypt, isEncrypting } = useEncrypt();
+
+  const handleSubmit = async (pollutionLevel) => {
+    // Encrypt data using FHEVM SDK
+    const encrypted = await encrypt(pollutionLevel, 'uint32');
+
+    // Submit to contract
+    const contract = await client.getContract(contractAddress, abi);
+    const tx = await contract.submitReport(encrypted, pollutantType, stationId);
+    await tx.wait();
+  };
+
+  return (
+    <button onClick={() => handleSubmit(125)} disabled={isEncrypting}>
+      {isEncrypting ? 'Encrypting...' : 'Submit Report'}
+    </button>
+  );
+}
+```
+
+**React App Quick Start:**
+```bash
+cd PrivacyPollutionMonitor
+npm install
+npm run dev
+# Visit http://localhost:3001
+```
+
+**See [PrivacyPollutionMonitor/README-REACT.md](./PrivacyPollutionMonitor/README-REACT.md) for complete React documentation.**
+
 ---
 
 ## 🧪 Testing
@@ -410,12 +479,35 @@ vercel --prod
 - **OpenZeppelin Contracts** `^5.0.0` - Security standards
 - **Hardhat** `2.22.0` - Development environment
 
-### Frontend
-- **React** `^18.3.0` - UI framework
-- **Vite** `^5.0.0` - Build tool
-- **fhevmjs** - Client-side FHE encryption
+### Frontend Applications
+
+#### Main Application (Legacy HTML)
+- **HTML5** - Static web pages
+- **Vanilla JavaScript (ES6+)** - Client-side logic
 - **ethers.js** `^6.9.0` - Blockchain interaction
-- **TailwindCSS** - Styling
+- **CSS3** - Modern styling with gradients
+
+#### PrivacyPollutionMonitor React App (NEW)
+- **React** `^18.3.0` - Modern UI framework with hooks
+- **Vite** `^5.0.0` - Fast build tool and dev server
+- **FHEVM SDK** `file:../../packages/fhevm-sdk` - Fully integrated SDK
+- **ethers.js** `^6.9.0` - Ethereum interaction
+- **React Hooks** - `useFhevmClient`, `useEncrypt`, custom hooks
+- **Component Architecture** - Modular, reusable components
+  - WalletConnect.jsx - Wallet integration
+  - Dashboard.jsx - Real-time statistics
+  - StationRegistration.jsx - Station management
+  - PollutionReporter.jsx - Encrypted reporting with FHE
+  - ThresholdManager.jsx - Alert threshold configuration
+
+#### React App Features
+- ✅ **Full FHEVM SDK Integration** - `FhevmProvider` context with React hooks
+- ✅ **Client-Side Encryption** - Real FHE encryption before blockchain submission
+- ✅ **Modern State Management** - React hooks (useState, useEffect, useContext)
+- ✅ **Component-Based Architecture** - Clean separation of concerns
+- ✅ **TypeScript Support** - Enhanced type safety and IDE support
+- ✅ **Hot Module Replacement** - Fast development experience with Vite
+- ✅ **Production Ready** - Optimized builds and error handling
 
 ### Development Tools
 - **TypeScript** - Type safety
@@ -537,12 +629,31 @@ privacy-pollution-monitor/
 ├── test/                         # Test files (20+ tests)
 │   ├── PollutionMonitor.test.js
 │   └── integration/
-├── frontend/                     # React frontend
+├── frontend/                     # Legacy HTML frontend
 │   ├── src/
 │   │   ├── components/          # UI components
 │   │   ├── hooks/               # Custom React hooks
 │   │   └── utils/               # FHE utilities
 │   └── public/
+├── PrivacyPollutionMonitor/     # React application (NEW)
+│   ├── src/
+│   │   ├── components/          # React components
+│   │   │   ├── WalletConnect.jsx       # Wallet connection
+│   │   │   ├── Dashboard.jsx           # Statistics dashboard
+│   │   │   ├── StationRegistration.jsx # Station management
+│   │   │   ├── PollutionReporter.jsx   # Encrypted reporting
+│   │   │   └── ThresholdManager.jsx    # Alert thresholds
+│   │   ├── lib/
+│   │   │   └── config.js        # Contract configuration
+│   │   ├── styles/
+│   │   │   └── App.css          # Application styles
+│   │   ├── App.jsx              # Main app component with FhevmProvider
+│   │   └── main.jsx             # Entry point
+│   ├── index-react.html         # HTML template
+│   ├── vite.config.js           # Vite configuration
+│   ├── package.json             # Dependencies
+│   ├── README-REACT.md          # React version documentation
+│   └── index.html               # Legacy static version
 ├── hardhat.config.js            # Hardhat configuration
 ├── .env.example                 # Environment template
 └── README.md                    # This file
@@ -575,16 +686,44 @@ npm run size                 # Check contract sizes
 npm run node                 # Start local Hardhat node
 ```
 
+### React Application Scripts (PrivacyPollutionMonitor/)
+
+```bash
+# Development
+npm run dev                  # Start Vite dev server (http://localhost:3001)
+npm run build                # Build for production
+npm run preview              # Preview production build
+
+# Code Quality
+npm run lint                 # Lint React/JavaScript code
+npm run type-check           # TypeScript type checking
+
+# Quick Start
+cd PrivacyPollutionMonitor
+npm install
+npm run dev
+```
+
 ---
 
 ## 📚 Documentation
 
+### Core Documentation
 - **[SECURITY_PERFORMANCE.md](./SECURITY_PERFORMANCE.md)** - Security audit and performance optimization guide
 - **[TOOLCHAIN_INTEGRATION.md](./TOOLCHAIN_INTEGRATION.md)** - Complete development toolchain documentation
 - **[TESTING.md](./TESTING.md)** - Comprehensive testing guide with 20+ test cases
 - **[DEPLOYMENT.md](./DEPLOYMENT.md)** - Deployment instructions for Sepolia and production
 - **[IMPLEMENTATION_SUMMARY.md](./IMPLEMENTATION_SUMMARY.md)** - Implementation details and features
 - **[QUICK_START.md](./QUICK_START.md)** - Quick reference for common tasks
+
+### React Application Documentation (NEW)
+- **[PrivacyPollutionMonitor/README-REACT.md](./PrivacyPollutionMonitor/README-REACT.md)** - Complete React application guide
+  - FHEVM SDK integration patterns
+  - React hooks usage (`useFhevmClient`, `useEncrypt`)
+  - Component architecture
+  - Development workflow
+  - Production build and deployment
+  - Comparison with static HTML version
 
 ---
 
