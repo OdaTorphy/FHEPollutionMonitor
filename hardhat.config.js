@@ -1,6 +1,7 @@
 require("@nomicfoundation/hardhat-toolbox");
 require("@nomicfoundation/hardhat-verify");
 require("dotenv").config();
+require("@fhevm/hardhat");
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
@@ -37,7 +38,22 @@ module.exports = {
       url: process.env.SEPOLIA_RPC_URL || "https://rpc.sepolia.org",
       accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
       chainId: 11155111,
-      gasPrice: "auto"
+      gasPrice: "auto",
+      fhe: {
+        gatewayUrl: process.env.FHE_GATEWAY_URL || "https://gateway.zama.ai",
+        network: "sepolia",
+        contractAddress: process.env.FHE_CONTRACT_ADDRESS || "0x0000000000000000000000000000000000000080"
+      }
+    },
+    fhevm: {
+      url: process.env.FHEVM_RPC_URL || "https://rpc.zama.ai",
+      chainId: 8008135,
+      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
+      fhe: {
+        gatewayUrl: "https://gateway.zama.ai",
+        network: "fhevm",
+        contractAddress: "0x0000000000000000000000000000000000000080"
+      }
     }
   },
   etherscan: {

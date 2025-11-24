@@ -17,15 +17,19 @@ async function main() {
   console.log(`Balance: ${hre.ethers.formatEther(await hre.ethers.provider.getBalance(deployer.address))} ETH`);
   console.log("═══════════════════════════════════════\n");
 
-  // Deploy contract
-  console.log("📦 Deploying PrivacyPollutionMonitor contract...");
-  const PrivacyPollutionMonitor = await hre.ethers.getContractFactory("PrivacyPollutionMonitor");
-  const contract = await PrivacyPollutionMonitor.deploy();
+  // Deploy contract with initial funding
+  console.log("📦 Deploying Enhanced PrivacyPollutionMonitor contract...");
+  const initialFunding = hre.ethers.parseEther("0.5"); // 0.5 ETH initial funding for refunds
+  const EnhancedPrivacyPollutionMonitor = await hre.ethers.getContractFactory("EnhancedPrivacyPollutionMonitor");
+  const contract = await EnhancedPrivacyPollutionMonitor.deploy({
+    value: initialFunding,
+    gasLimit: 8000000 // High gas limit for complex FHE contract
+  });
 
   await contract.waitForDeployment();
   const contractAddress = await contract.getAddress();
 
-  console.log("✅ Contract deployed successfully!\n");
+  console.log("✅ Enhanced Privacy Pollution Monitor deployed successfully!\n");
 
   // Display deployment results
   console.log("📝 Deployment Results:");
@@ -34,7 +38,26 @@ async function main() {
   console.log(`Transaction Hash: ${contract.deploymentTransaction().hash}`);
   console.log(`Block Number: ${contract.deploymentTransaction().blockNumber || 'Pending'}`);
   console.log(`Gas Used: ${contract.deploymentTransaction().gasLimit.toString()}`);
+  console.log(`Initial Funding: ${hre.ethers.formatEther(initialFunding)} ETH`);
   console.log("═══════════════════════════════════════\n");
+
+  // Verify deployment by checking initial state
+  console.log("🔍 Verifying deployment...");
+  const owner = await contract.owner();
+  const initialStatus = await contract.getCurrentStatus();
+
+  console.log(`Contract Owner: ${owner}`);
+  console.log(`Total Stations: ${initialStatus.totalStations}`);
+  console.log(`Total Reports: ${initialStatus.totalReports}`);
+  console.log(`Contract Paused: ${initialStatus.contractPaused}`);
+  console.log(`Platform Fees: ${hre.ethers.formatEther(initialStatus.totalPlatformFees)} ETH\n`);
+
+  // Initialize contract with basic configuration
+  console.log("⚙️ Initializing contract configuration...");
+  await contract.setAlertThreshold(1, 300, 150); // PM2.5
+  await contract.setAlertThreshold(2, 400, 200); // PM10
+  await contract.setAlertThreshold(3, 200, 100); // NO2
+  console.log("✅ Default alert thresholds configured\n");
 
   // Generate Etherscan link
   const explorerUrl = network === "sepolia"
@@ -49,7 +72,7 @@ async function main() {
   const deploymentInfo = {
     network: network,
     chainId: Number((await hre.ethers.provider.getNetwork()).chainId),
-    contractName: "PrivacyPollutionMonitor",
+    contractName: "EnhancedPrivacyPollutionMonitor",
     contractAddress: contractAddress,
     deployer: deployer.address,
     deploymentHash: contract.deploymentTransaction().hash,
