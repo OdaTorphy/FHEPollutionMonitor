@@ -10,7 +10,7 @@ Privacy-preserving environmental monitoring powered by Zama FHEVM - enabling hon
 
 **💻 GitHub**: [https://github.com/OdaTorphy/FHEPollutionMonitor](https://github.com/OdaTorphy/FHEPollutionMonitor)
 
-**📹 Demo Video**: Download `demo.mp4` to watch the full demonstration (video link not available for streaming)
+**📹 Demo Video**: Download `demo.mp4` to watch the full demonstration https://streamable.com/tgq847 
 
 Built for the **Zama FHE ** - demonstrating practical privacy-preserving applications in environmental governance.
 
